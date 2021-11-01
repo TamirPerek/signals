@@ -8,10 +8,12 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_library(signals "")
-target_sources(signals PRIVATE ${CMAKE_SOURCE_DIR}/src/signals.h
-                               ${CMAKE_SOURCE_DIR}/src/signals.cpp)
-target_include_directories(signals PUBLIC ${CMAKE_SOURCE_DIR}/src)
+file(GLOB_RECURSE TARGET_SRC "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp" "${CMAKE_CURRENT_SOURCE_DIR}/src/*.hpp" "${CMAKE_CURRENT_SOURCE_DIR}/src/*.h")
+
+add_library(signals STATIC ${TARGET_SRC})
+target_sources(signals PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src/signals.h
+                               ${CMAKE_CURRENT_SOURCE_DIR}/src/signals.cpp)
+target_include_directories(signals PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/src)
 target_compile_options(signals PUBLIC
     $<$<CXX_COMPILER_ID:GNU>:-Wall>
     $<$<CXX_COMPILER_ID:Clang>:-Wall>
