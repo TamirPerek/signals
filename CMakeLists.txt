@@ -20,6 +20,13 @@ target_compile_options(signals PUBLIC
 
 find_package (Threads)
 target_link_libraries (signals PUBLIC ${CMAKE_THREAD_LIBS_INIT})
+
+option(SIGNALS_BUILD_TESTS "Build tests, require googletest" ON)
+option(SIGNALS_BUILD_DEMO "Build demo" ON)
     
+if(SIGNALS_BUILD_TESTS)
 add_subdirectory(tests)
+endif()
+if(SIGNALS_BUILD_DEMO)
 add_subdirectory(demo)
+endif()
